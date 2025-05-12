@@ -1,0 +1,57 @@
+[gd_scene load_steps=7 format=3 uid="uid://v41a4ymchskw"]
+
+[ext_resource type="Script" uid="uid://cya8i3vt046cr" path="res://Scenes/Game/Game.cs" id="1_rdw05"]
+[ext_resource type="Texture2D" uid="uid://rdst0mb5hhp3" path="res://assets/GameBg.png" id="2_gwu2e"]
+[ext_resource type="PackedScene" uid="uid://dtaegoh7vsfwj" path="res://Scenes/Paddle/Paddle.tscn" id="3_xbxml"]
+[ext_resource type="PackedScene" uid="uid://conoqk8qh7vje" path="res://Scenes/Gem/Gem.tscn" id="4_ln2h6"]
+[ext_resource type="AudioStream" uid="uid://bqtlp7dph6w8t" path="res://assets/spell1_0.wav" id="5_3k6gv"]
+[ext_resource type="AudioStream" uid="uid://bfellw6byrc1n" path="res://assets/bgm_action_5.mp3" id="5_y3kpf"]
+
+[node name="Game" type="Node2D" node_paths=PackedStringArray("_spawnTimer", "_scoreLabel", "_music", "_effects")]
+script = ExtResource("1_rdw05")
+_gemScene = ExtResource("4_ln2h6")
+_spawnTimer = NodePath("Timer")
+_scoreLabel = NodePath("ScoreLabel")
+_music = NodePath("Music")
+_effects = NodePath("Effects")
+
+[node name="GameBg" type="Sprite2D" parent="."]
+position = Vector2(575.667, 324)
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("2_gwu2e")
+
+[node name="ScoreLabel" type="Label" parent="."]
+offset_left = 24.0
+offset_top = 24.0
+offset_right = 134.0
+offset_bottom = 91.0
+theme_override_colors/font_color = Color(0.8, 0.7904, 0.512, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 2
+theme_override_constants/shadow_outline_size = 4
+theme_override_font_sizes/font_size = 48
+text = "0000"
+
+[node name="Paddle" parent="." instance=ExtResource("3_xbxml")]
+position = Vector2(593, 606)
+
+[node name="Gem" parent="." instance=ExtResource("4_ln2h6")]
+visible = false
+position = Vector2(580, 178)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[node name="Effects" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_3k6gv")
+volume_db = -16.0
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_y3kpf")
+volume_db = -20.0
+pitch_scale = 0.8
+autoplay = true
